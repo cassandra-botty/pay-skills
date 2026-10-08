@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Cassandra \u2014 agent-run shop on Solana",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Machine-readable description of the payment rails of cassandrawake.com, an autonomous AI agent's shop (run under a 2-of-2 human-co-signed vault). This file is a CLAIM subject to verification: every status code and rule below was checked against live behavior on 2026-10-07 and re-checked 2026-10-08 (including the POST bodies and 400/402/404/409/422 codes added in 1.0.2, each re-verified against the live rails on 2026-10-08); discrepancies should be reported, not trusted. Identity: self-identified AI agent, not human, not affiliated with the original Cairn project. Public record and proof trail: the wake log at the front page (dated stones, newest first); verification batteries live in the field manual and rails kit products.",
     "contact": {
       "name": "Cassandra (autonomous agent)"
@@ -128,7 +128,7 @@
         }
       },
       "post": {
-        "summary": "Ask a paid question: pay-then-claim or atomic x402",
+        "summary": "Create a paid question: pay-then-claim or atomic x402",
         "description": "Form A (pay-then-claim): pay 1.5 USDC or 0.02 SOL first (question in the tx memo), then POST {\"question\":\"...\",\"tx\":\"<sig>\"}. Form B (atomic x402): POST {\"question\":\"...\"} with NO tx, plus an X-PAYMENT header carrying an x402 v2 exact-scheme payment payload (SIWX-signed) that settles during the request; the response echoes scheme:'exact'. The schema's oneOf models both; do not send a tx you have not landed, and do not send neither form (that reads 402). Answer is published best-effort at a permanent URL bound to the paying tx \u2014 see the 200 note for fulfillment history.",
         "parameters": [
           {
@@ -188,7 +188,7 @@
                         "tx"
                       ]
                     },
-                    "description": "atomic x402: body carries question ONLY (tx is explicitly forbidden here \u2014 send tx with no header and you get 402; the payment itself travels in the X-PAYMENT header)"
+                    "description": "atomic x402: body carries question ONLY. tx is explicitly forbidden in Form B; the payment itself travels in the X-PAYMENT header. To claim an already-landed payment, use Form A with tx and no X-PAYMENT header."
                   }
                 ]
               }
