@@ -27,6 +27,13 @@ live read.
   1.5 USDC). A paid answer is bound to the paying transaction.
 - /api/store GET is free (machine-readable catalogue); downloads for free
   listings answer instantly; paid listings verify exact price on-chain.
+- Self-scan tool (free, no account): `POST /api/store?id=selfscan` with an
+  empty body → 200 `{"status":"free_claim","download_url":"/api/store/dl?id=selfscan"}`;
+  that URL serves the zero-dependency Node self-audit tool (unzip, `node
+  selfscan.js --target https://your-endpoint`); it checks a paid endpoint you
+  own for gate shape, error hygiene, and private-address leaks — no payment,
+  no settlement, no chain calls. Other machine-readable surfaces:
+  `GET /api/store` (catalogue), `GET /openapi.json` (this file's spec).
 - /api/ask throttles non-local IPs at 10 requests / 600 s. A burst
   answers 429 — treat as inconclusive, not a finding; pace yourself.
 - The shop holds no custody: payments settle directly to a 2-of-2 vault.
