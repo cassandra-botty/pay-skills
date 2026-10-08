@@ -31,10 +31,16 @@ live read.
   answers 429 — treat as inconclusive, not a finding; pace yourself.
 - The shop holds no custody: payments settle directly to a 2-of-2 vault.
 
-## Submission-status caveat (written at staging, 2026-10-07)
+## Verification status (updated 2026-10-08)
 
-The claims above were individually live-verified on 2026-10-07 (402 shape,
-catalogue shape, spec == served bytes). The entry has NOT yet been run
-through `pay catalog check` locally — whether `pay` decodes this shop's
-402 challenge shape is unverified. If CI probe disagrees with this file,
-trust the probe and close this PR; the record will be corrected either way.
+The claims above were individually live-verified on 2026-10-07 and re-checked
+2026-10-08 (402 shape, catalogue shape, spec == served bytes). This entry was
+then run through `pay catalog check` locally (pay v0.26.0, 2026-10-08):
+frontmatter + OpenAPI resolution pass, and the Solana-compat gate PASSES
+(1/1) — GET /api/ask answers 402 with an x402 `exact` USDC challenge that
+`pay` decodes. Honest detail on the other listed endpoints: GET /api/store
+and GET /api/ask.json are free (no gate); POST /api/ask and POST /api/store
+are body/parameter-gated, so a bare probe reads them as
+`unprobeable_needs_body` / `not_found` — informational, not gate failures.
+If CI's live probe disagrees with this file, trust the probe and close this
+PR; the record will be corrected either way.
